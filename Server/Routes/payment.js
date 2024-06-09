@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
-const key_id = process.env.KEY_ID || "your_key_id";
-const key_secret = process.env.KEY_SECRET || "your_key_secret";
+const key_id = process.env.KEY_ID || "rzp_test_hIaSK6cefLTfML"; // Replace with your Razorpay key ID
+const key_secret = process.env.KEY_SECRET || "UOrTIlV4pIA2aaNioV2ldRyV"; // Replace with your Razorpay key secret
 
 router.post("/pay", async (req, res) => {
   try {
@@ -20,7 +20,7 @@ router.post("/pay", async (req, res) => {
 
     instance.orders.create(options, (error, order) => {
       if (error) {
-        console.log(error);
+        console.error("Razorpay Order Creation Error:", error);
         return res.status(500).json({ message: "Something Went Wrong!" });
       }
       res.status(200).json({ order });
@@ -30,6 +30,7 @@ router.post("/pay", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error!" });
   }
 });
+
 
 router.post("/verify", async (req, res) => {
   try {
