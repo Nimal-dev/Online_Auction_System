@@ -23,7 +23,7 @@ const Payment = () => {
     };
 
     fetchData();
-  }, [location.state.id,paymentData]);
+  }, []);
 
   const handlePayNow = async (productId) => {
 	try {
@@ -49,12 +49,12 @@ const Payment = () => {
     }
 
     const options = {
-      key: "your_key",
+      key: "rzp_test_4Ex6Tyjkp79GFy",
       amount: paymentData.BidAmount * 100, 
       currency: "INR",
       name: paymentData.ProductName,
       description: paymentData.Description,
-      image: `http://localhost:4000/${paymentData.Images[0]}`,
+      // image: `http://localhost:4000/${paymentData.Images[0]}`,
       order_id: paymentData.order_id, 
       handler: async (response) => {
         try {
@@ -62,7 +62,9 @@ const Payment = () => {
           const { data } = await axios.post(verifyUrl, response);
           console.log(data);
         } catch (error) {
+          console.log("-------------------------------------");
           console.log(error);
+          console.log("-------------------------------------");
         }
       },
       theme: {
