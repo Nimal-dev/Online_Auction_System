@@ -17,8 +17,7 @@ const Navbar = () => {
           <Link to="/" style={{ color: '#931FFF', textDecoration: 'none', fontSize: '1.5rem' }}>
             <span style={airway}>AuctionElite 🔨 </span>
           </Link>
-          <input type="text" placeholder="Search" style={{ marginLeft: '10px', marginRight: '10px', width: '250px', height: '35px', fontSize: '15px' }} />
-          <button style={{ backgroundColor: '#931FFF', color: 'white', border: 'none', padding: '5px 10px', cursor: 'pointer', height: '35px', fontSize: '20px' }}>Search</button>
+          
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <div style={{ position: 'relative', cursor: 'pointer' }}>
