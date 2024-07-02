@@ -33,7 +33,7 @@ function Register() {
               <div className="d-flex align-items-center justify-content-between mb-3">
                 <Link to="/">
                   <h3 style={{ fontSize: '25px', color: '#880085' }}>
-                    <i className="fa  me-2" style={{ fontSize: '18px', color: '#880085' }}></i>AUCTIONELITE
+                    <i className="fa  me-2" style={{ fontSize: '18px', color: '#880085' }}></i>ONLINE AUCTION
                   </h3>
                 </Link>
                 <h5>Sign Up</h5>

@@ -1,0 +1,63 @@
+[{
+  "_id": {
+    "$oid": "6635dfc44505e894fd294a8f"
+  },
+  "name": "Admin",
+  "email": "admin@gmail.com",
+  "status": "0",
+  "password": "123456789"
+},
+{
+  "_id": {
+    "$oid": "663608686ad3cbf868298fad"
+  },
+  "name": "Bidder1",
+  "email": "bidder1@gmail.com",
+  "status": "1",
+  "password": "123"
+},
+{
+  "_id": {
+    "$oid": "6636087c6ad3cbf868298fae"
+  },
+  "name": "Bidder2",
+  "email": "bidder2@@gmail.com",
+  "status": "1",
+  "password": "123"
+},
+{
+  "_id": {
+    "$oid": "663608926ad3cbf868298faf"
+  },
+  "name": "Bidder3@gmail.com",
+  "email": "bidder3@gmail.com",
+  "status": "1",
+  "password": "123"
+},
+{
+  "_id": {
+    "$oid": "663608ab6ad3cbf868298fb0"
+  },
+  "name": "Seller1",
+  "email": "seller1@gmail.com",
+  "status": "2",
+  "password": "123"
+},
+{
+  "_id": {
+    "$oid": "663608be6ad3cbf868298fb1"
+  },
+  "name": "Seller2",
+  "email": "seller2@gmail.com",
+  "status": "2",
+  "password": "123"
+},
+{
+  "_id": {
+    "$oid": "663608db6ad3cbf868298fb2"
+  },
+  "name": "Seller3@gmail.com",
+  "email": "seller3@gmail.com",
+  "status": "2",
+  "password": "123"
+}]

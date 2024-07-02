@@ -66,7 +66,7 @@ function Login({ setUser }) {
             <div className="d-flex align-items-center justify-content-between mb-3">
               <Link to="/">
                 <h3 style={{ fontSize: '25px', color: '#880085' }}>
-                  AUCTIONELITE
+                  ONLINE AUCTION
                 </h3>
               </Link>
               <h5>Sign In</h5>
