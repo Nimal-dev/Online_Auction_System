@@ -39,6 +39,8 @@ import Sellerhistory from './seller/Sellerhistory';
 import Payment from './bidder/Payment';
 import Messages from './seller/SellerMessages';
 import MessageView from './seller/MessageView';
+import PasswordResetRequest from './PasswordResetRequest';
+import PasswordReset from './PasswordReset';
 
 function App() {
 	const storedUser = JSON.parse(sessionStorage.getItem('user'));
@@ -58,6 +60,8 @@ function App() {
 	<Route path='/' element={<Front/>}/>
 	<Route path='/login' element={<Login setUser={setUser}/>}/>
 	<Route path='/register' element={<Register/>}/>
+	<Route path="/reset-password-request" element={<PasswordResetRequest />} />
+        <Route path="/reset-password/:token" element={<PasswordReset />} />
 
 
 

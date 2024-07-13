@@ -81,7 +81,7 @@ const Bidder = ({ user }) => {
 		<div class="content">
 			<Biddernavbar user={user}/>
 			<div class="container-fluid pt-4 px-4">
-			<header style={{ textAlign:'center',marginBottom:'30px', padding: '20px',background:'linear-gradient(to right, #f8f8f8, #e6e6e6)',  borderRadius: '10px', boxShadow: '0 6px 12px rgba(0, 0, 0, 0.2)' }}>
+			{/* <header style={{ textAlign:'center',marginBottom:'30px', padding: '20px',background:'linear-gradient(to right, #f8f8f8, #e6e6e6)',  borderRadius: '10px', boxShadow: '0 6px 12px rgba(0, 0, 0, 0.2)' }}>
 				<h1 style={{ fontSize: '3rem', color: '#00cccc', marginBottom: '20px', textTransform: 'uppercase', letterSpacing: '2px' }}>Welcome, {user.name}!</h1>
 				<p style={{ fontSize: '1.4rem', color: '#555', marginBottom: '20px' }}>
 				Immerse yourself in the exhilarating world of auctions at AuctionElite. Discover an array of captivating items, ranging from rare collectibles to exquisite artworks. Unleash the power of strategic bidding, and experience the heart-pounding thrill of claiming one-of-a-kind treasures as your own!
@@ -89,10 +89,13 @@ const Bidder = ({ user }) => {
 				<p style={{ fontSize: '1.2rem', color: '#777', marginTop: '20px' }}>
 				At AuctionElite, bidding responsibly is our guiding principle. Stay well-informed about auction timelines and delve into the details of each item. Navigate the exciting journey of auctions with confidence, and may every bid bring you closer to the joy of winning. Happy Bidding!
 				</p>
-			</header>
+			</header> */}
 
 			<div class="row g-4">
-				<div class="col-sm-12 col-xl-6 alert alert-primary">
+				
+{/* ------------------Bidder profile------------------------------- */}
+
+				<div class="col-sm-12 col-xl-6 ">
 					<div class='bg-light rounded h-100 p-4'>
 						<h4 class="mb-4 text-center" style={airway}>Bidder Profile</h4>
 						<div class='text-center'>
@@ -110,19 +113,12 @@ const Bidder = ({ user }) => {
 
 					</div>
 				</div>
-				
-				<div class="col-sm-12 col-xl-6 alert alert-success">
+{/* -------------------------------Auction History----------------------------------- */}
+				<div class="col-sm-12 col-xl-6">
 					<div class='bg-light rounded h-100 p-4'>
-						<h6 className="mb-4 text-center" style={{...airway,fontSize:'22px'}}>									
-							<div style={{ display: 'inline-block', position: 'relative' }}>
-								Auction History
-								{completedAuctions.length > 0 && (
-								<div style={{ position: 'absolute', top: '-1px', left: '105%', transform: 'translate(-50%, -50%)', borderRadius: '50%', width: '18px', height: '18px', backgroundColor: 'red', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',fontSize:'15px' }}>
-									{completedAuctions.length}
-								</div>
-								)}
-							</div>									
-						</h6>
+					<div className="d-flex justify-content-between align-items-center mb-4">
+              <h6 className="mb-0">AUCTION HISTORY</h6>
+            </div>
 
 						{completedAuctions.length > 0 ? (
 							<div className="d-flex flex-wrap">

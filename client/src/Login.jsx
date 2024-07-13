@@ -58,57 +58,91 @@ function Login({ setUser }) {
   
 
   return (
-    <div className="container-fluid" style={{ backgroundImage: `url(/login.jpg)`, backgroundSize: 'cover', width: '100%', height: '100vh', backgroundPosition: 'center' }}>
-      <ToastContainer autoClose={3000} />
-      <div className="row h-100 align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
-        <div className="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
-          <div className="bg-light rounded p-4 p-sm-5 my-4 mx-3">
-            <div className="d-flex align-items-center justify-content-between mb-3">
-              <Link to="/">
-                <h3 style={{ fontSize: '25px', color: '#880085' }}>
-                  ONLINE AUCTION
-                </h3>
-              </Link>
-              <h5>Sign In</h5>
+
+    <section className="contact bg-dark position-relative overflow-hidden" style={{ height: "100vh", alignContent: "center" }}>
+    <ToastContainer autoClose={1000} />
+    <div className="containers position-relative">
+      <div className="dots-shape-left position-absolute">
+        <img src="../assets/images/icons/dot-shape.png" alt="dot-shape" />
+      </div>
+      <div className="dots-shape-right position-absolute">
+        <img src="../assets/images/icons/dot-shape.png" alt="dot-shape" />
+      </div>
+      <div className="row">
+        <div className="col-xxl-5 col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
+          <h2 className="fs-1 text-white mb-0">LOG IN!</h2>
+          <br />
+          <h6 className="fs-4 text-white mb-0">
+            Log into a diverse auctioning platform <br />
+            for Digital Auctions
+          </h6>
+        </div>
+        <div className="col-xxl-7 col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
+          <form className="glassmorphism-form position-relative">
+            <div className="row ps-xxl-5 ps-xl-5 ps-lg-3 ps-md-0 ps-sm-0 ps-0">
+              <div className="col-12">
+                <div className="form-group">
+                  <label className="form-label text-white fs-7 mt-3 mb-3">
+                    Email address
+                  </label>
+                  <input
+                    type="email"
+                    className="form-control border-0 glass-input"
+                    id="floatingInput"
+                    placeholder="Enter your email address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="col-12">
+                <div className="form-group">
+                  <label className="form-label text-white fs-7 mt-3 mb-3">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    className="form-control border-0 glass-input mb-3"
+                    placeholder="Enter your password"
+                    id="floatingPassword"
+                    name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="col-12">
+                <button
+                  className="btn btn-warning btn-hover-secondary text-capitalize mt-2 w-auto contact-btn fs-4"
+                  type="button"
+                  onClick={handleLogin}
+                >
+                  Log In!
+                </button>
+              </div>
+              {/* <div className="col-12 mt-3">
+                <span className="text-white">
+                  <Link to="/reset-password-request">Forgot password?</Link>
+                </span>
+              </div> */}
+              <div className="col-12 mt-3">
+                <span className="text-white">
+                  Not a User? <Link to="/register">Sign Up</Link>
+                </span>
+              </div>
+              {errorMessage && (
+                <div className="col-12 mt-3">
+                  <span className="text-danger">{errorMessage}</span>
+                </div>
+              )}
             </div>
-            <div className="form-floating mb-3">
-              <input
-                type="email"
-                className="form-control"
-                id="floatingInput"
-                placeholder="name@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <label htmlFor="floatingInput">Email address</label>
-            </div>
-            <div className="form-floating mb-4">
-              <input
-                type="password"
-                className="form-control"
-                id="floatingPassword"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <label htmlFor="floatingPassword">Password</label>
-            </div>
-            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-            <button
-              type="button"
-              style={{ backgroundColor: '#880085', color: 'white' }}
-              className="btn py-3 w-100 mb-4"
-              onClick={handleLogin}
-            >
-              Sign In
-            </button>
-            <p className="text-center mb-0">
-              Don't have an Account? <Link to="/register"><span style={{ color: '#880085' }}>Sign Up</span></Link>
-            </p>
-          </div>
+          </form>
         </div>
       </div>
     </div>
+  </section>
+
+ 
   );
 }
 

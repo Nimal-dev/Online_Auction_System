@@ -92,7 +92,7 @@ function Adminschedulelist() {
                 <table className="table table-bordered" style={{ border: '2px solid #880085' }}>
                   <thead style={airway}>
                     <tr>
-                      <th scope="col">Seller Name</th>
+                      <th scope="col">Auctioneer Name</th>
                       <th scope="col">Product Name</th>
                       <th scope="col">Category</th>
                       <th scope="col">Auction Date</th>
@@ -126,7 +126,7 @@ function Adminschedulelist() {
                 <table className="table table-bordered" style={{ border: '2px solid #880085' }}>
                   <thead style={airway}>
                     <tr>
-                      <th scope="col">Seller Name</th>
+                      <th scope="col">Auctioneer Name</th>
                       <th scope="col">Product Name</th>
                       <th scope="col">Category</th>
                       <th scope="col">Auction Date</th>
@@ -157,7 +157,7 @@ function Adminschedulelist() {
 				<table className="table table-bordered" style={{ border: '2px solid #880085' }}>
 				<thead style={airway}>
 					<tr>
-					<th scope="col">Seller Name</th>
+					<th scope="col">Auctioneer Name</th>
 					<th scope="col">Product Name</th>
 					<th scope="col">Category</th>
 					<th scope="col">Auction Date</th>

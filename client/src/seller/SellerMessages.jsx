@@ -37,7 +37,7 @@ function Messages({ user }) {
     <div className="container-fluid">
       <div className="row h-100 align-items-center justify-content-center">
         <div className="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-6">
-          <div className="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
+          <div className="bg-light rounded p-4 p-sm-5 my-4 mx-3">
             <div className="d-flex align-items-center justify-content-center mb-3">
               <h3>CHAT MESSAGES</h3>
             </div>
@@ -54,7 +54,7 @@ function Messages({ user }) {
                   className="form-control"
                   placeholder="Enter your message"
                   id="floatingTextarea"
-                  name="Seller Message"
+                  name="Auctioneer Message"
                   style={{ height: "150px" }}
                   onChange={(event) => setSendMessage(event.target.value)}
                 ></textarea>

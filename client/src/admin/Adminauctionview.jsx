@@ -50,7 +50,7 @@ function Adminauctionview() {
                                 <p><b style={airway}>Minimum Bid Amount: </b>{data.Minamount}</p>
                                 <p><b style={airway}>Manufacturing Date:</b> {data.Date}</p>
                                 <p><b style={airway}>Category:</b> {data.Category}</p>
-                                <p><b style={airway}>Seller Name:</b> {data.Username}</p>
+                                <p><b style={airway}>Auctioneer Name:</b> {data.Username}</p>
 								{data.BidAmount && (
 									<>
 										<p><b style={airway}>Bid Amount: </b>{data.BidAmount}</p>

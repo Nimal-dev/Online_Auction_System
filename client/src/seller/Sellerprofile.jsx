@@ -56,7 +56,7 @@ function Sellerprofile({ user,updateUserCallback}) {
   
 		navigate('/sellerprofileview');
 	}  catch (error) {
-		console.error('Error during seller profile save/update:', error);
+		console.error('Error during Auctioneer profile save/update:', error);
 	  
 	  }
   };
@@ -68,7 +68,7 @@ function Sellerprofile({ user,updateUserCallback}) {
         <Sellernavbar user={user}/>
 
         <div style={{ margin: '15px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column',height:'1500px'}} className='bg-light rounded h-100 p-4'>
-          <h3>Seller Details</h3>
+          <h3>Auctioneer Details</h3>
           <form onSubmit={handleFormSubmit} encType="multipart/form-data">
             <div className="mb-3">
               <label htmlFor="name" className="form-label">

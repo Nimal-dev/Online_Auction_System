@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation,useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Adminsidebar from "./Adminsidebar";
@@ -11,7 +11,7 @@ import Port from "../Port";
 function Adminscheduleproduct() {
   const location = useLocation();
   const selectedCategory = location.state?.category;
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [data, setData] = useState({});
   const [auctionDate, setAuctionDate] = useState('');
   const [startTime, setStartTime] = useState('');
@@ -54,82 +54,116 @@ function Adminscheduleproduct() {
   const handleRescheduleClick = () => {
     setShowForm(true);
   };
-  const handleFormSubmit = async () => {
-	 try {
-	   const params = {
-	     id: location.state?.id,
-	   };
-	   const response = await fetch(`${Port}/updateauction/${params.id}`, {
-	     method: 'POST',
-	     headers: {
-	       'Content-Type': 'application/json',
-	     },
-	     body: JSON.stringify({
-	       auctionDate,
-	       startTime,
-	       endTime,
-	       params,
-	     }),
-	   });
-	
-	   if (response.ok) {
-		toast.success(`Product Scheduled Successfully`, {
-			position: 'top-right',
-			autoClose: 1000, 
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-		  });
-	     console.log('Auction details updated successfully');
-	     setShowForm(false);
-	     setRefresh((prev) => prev + 1);
-	   } else {
-	     console.error('Failed to update auction details');
-	   }
-	 } catch (error) {
-	   console.error('Error updating auction details:', error);
-	 }
- };
-  const handleFormSubmitForCategory = async () => {
-        if (selectedCategory) {
-          const scheduleAllParams = {
-            category: selectedCategory,
-            auctionDate,
-            startTime,
-            endTime,
-          };
 
-          const scheduleAllResponse = await fetch(`${Port}/scheduleall`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(scheduleAllParams),
-          });
-		if (scheduleAllResponse.ok) {
-			toast.success(`Scheduled all products in ${selectedCategory}`, {
-			  position: 'top-right',
-			  autoClose: 1000, 
-			  hideProgressBar: false,
-			  closeOnClick: true,
-			  pauseOnHover: true,
-			  draggable: true,
-			  onClose: () => {
-				navigate('/adminschedulelist');
-			  },
-			});
-		  } else {
-			toast.error('Failed to schedule products. Please try again.', {
-			  position: 'top-right',
-			  autoClose: 1000,
-			  hideProgressBar: false,
-			  closeOnClick: true,
-			  pauseOnHover: true,
-			  draggable: true,
-			});
-		  }
-        }
+  const validateAuctionDetails = () => {
+    const today = new Date();
+    const selectedDate = new Date(auctionDate);
+    const start = new Date(`1970-01-01T${startTime}:00`);
+    const end = new Date(`1970-01-01T${endTime}:00`);
+
+    // Reset time to 00:00:00 for comparison
+    today.setHours(0, 0, 0, 0);
+    
+    if (selectedDate < today) {
+      toast.error('Auction date cannot be in the past.', {
+        position: 'top-right',
+        autoClose: 1000,
+      });
+      return false;
+    }
+
+    if (start >= end) {
+      toast.error('Start time must be before end time.', {
+        position: 'top-right',
+        autoClose: 1000,
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleFormSubmit = async () => {
+    if (!validateAuctionDetails()) return;
+
+    try {
+      const params = {
+        id: location.state?.id,
+      };
+      const response = await fetch(`${Port}/updateauction/${params.id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          auctionDate,
+          startTime,
+          endTime,
+          params,
+        }),
+      });
+
+      if (response.ok) {
+        toast.success('Product Scheduled Successfully', {
+          position: 'top-right',
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        setShowForm(false);
+        setRefresh((prev) => prev + 1);
+      } else {
+        console.error('Failed to update auction details');
+      }
+    } catch (error) {
+      console.error('Error updating auction details:', error);
+    }
+  };
+
+  const handleFormSubmitForCategory = async () => {
+    if (!validateAuctionDetails()) return;
+
+    if (selectedCategory) {
+      const scheduleAllParams = {
+        category: selectedCategory,
+        auctionDate,
+        startTime,
+        endTime,
+      };
+
+      const scheduleAllResponse = await fetch(`${Port}/scheduleall`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(scheduleAllParams),
+      });
+
+      if (scheduleAllResponse.ok) {
+        toast.success(`Scheduled all products in ${selectedCategory}`, {
+          position: 'top-right',
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          onClose: () => {
+            navigate('/adminschedulelist');
+          },
+        });
+      } else {
+        toast.error('Failed to schedule products. Please try again.', {
+          position: 'top-right',
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      }
+    }
   };
 
   const formStyles = {
@@ -173,32 +207,32 @@ function Adminscheduleproduct() {
 
         <div className="col-sm-12 col-xl-12" style={{ margin: '2px' }}>
           {selectedCategory ? (
-			<div style={{...airway,margin:'20px'}}>
-			<h3 className="mb-4" style={{...airway,marginTop:'20px'}}>Schedule all products in {selectedCategory}</h3>
-            <form>
-              <label style={formStyles.label}>Auction Date:</label>
-              <input type="date" value={auctionDate} style={formStyles.input} onChange={(e) => setAuctionDate(e.target.value)} required /><br />
+            <div style={{ ...airway, margin: '20px' }}>
+              <h3 className="mb-4" style={{ ...airway, marginTop: '20px' }}>Schedule all products in {selectedCategory}</h3>
+              <form>
+                <label style={formStyles.label}>Auction Date:</label>
+                <input type="date" value={auctionDate} style={formStyles.input} onChange={(e) => setAuctionDate(e.target.value)} required /><br />
 
-              <label style={formStyles.label}>Start Time:</label>
-              <input type="time" value={startTime} style={formStyles.input} onChange={(e) => setStartTime(e.target.value)} /><br />
+                <label style={formStyles.label}>Start Time:</label>
+                <input type="time" value={startTime} style={formStyles.input} onChange={(e) => setStartTime(e.target.value)} required /><br />
 
-              <label style={formStyles.label}>End Time:</label>
-              <input type="time" value={endTime} style={formStyles.input} onChange={(e) => setEndTime(e.target.value)} /><br />
+                <label style={formStyles.label}>End Time:</label>
+                <input type="time" value={endTime} style={formStyles.input} onChange={(e) => setEndTime(e.target.value)} required /><br />
 
-              <button type="button" style={formStyles.button} onClick={handleFormSubmitForCategory}>Update Auction Details</button>
-            </form>
-			</div>
+                <button type="button" style={formStyles.button} onClick={handleFormSubmitForCategory}>Update Auction Details</button>
+              </form>
+            </div>
           ) : (
             <div className="bg-light rounded h-100 p-4">
               <h3 className="mb-4" style={airway}>Product Details</h3>
               <div className="row">
                 <div className="col-md-5">
-                  <p><b style={airway}>Product Name:</b>{data.ProductName}</p>
+                  <p><b style={airway}>Product Name:</b> {data.ProductName}</p>
                   <p><b style={airway}>Description: </b>{data.Description}</p>
                   <p><b style={airway}>Minimum Bid Amount: </b>{data.Minamount}</p>
-                  <p><b style={airway}>Manufacturing Date:</b> {data.Date}</p>
+                  <p><b style={airway}>Model/Established Date:</b> {data.Date}</p>
                   <p><b style={airway}>Category:</b> {data.Category}</p>
-                  <p><b style={airway}>Seller Name:</b> {data.Username}</p>
+                  <p><b style={airway}>Auctioneer Name:</b> {data.Username}</p>
                   {data.AuctionDate && data.StartTime && data.EndTime && (
                     <>
                       <p><b style={airway}>Auction Date:</b> {data.AuctionDate}</p>
@@ -214,10 +248,10 @@ function Adminscheduleproduct() {
                       <input type="date" value={auctionDate} style={formStyles.input} onChange={(e) => setAuctionDate(e.target.value)} required /><br />
 
                       <label style={formStyles.label}>Start Time:</label>
-                      <input type="time" value={startTime} style={formStyles.input} onChange={(e) => setStartTime(e.target.value)} /><br />
+                      <input type="time" value={startTime} style={formStyles.input} onChange={(e) => setStartTime(e.target.value)} required /><br />
 
                       <label style={formStyles.label}>End Time:</label>
-                      <input type="time" value={endTime} style={formStyles.input} onChange={(e) => setEndTime(e.target.value)} /><br />
+                      <input type="time" value={endTime} style={formStyles.input} onChange={(e) => setEndTime(e.target.value)} required /><br />
 
                       <button type="button" style={formStyles.button} onClick={handleFormSubmit}>Update Auction Details</button>
                     </form>
