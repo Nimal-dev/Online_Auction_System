@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Adminsidebar from "./Adminsidebar";
 import Adminnavbar from "./Adminnavbar";
 import Clock from "../Clock";
 import Alert from "./Alert";
-import { Link } from "react-router-dom";
 import Port from "../Port";
+
 function Admin() {
   const airway = {
     color: "#880085",
   };
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -76,9 +78,10 @@ function Admin() {
 
   const pendingItems = data.filter((item) => item.status === undefined);
 
-  const scheduledAuction = data.filter(
+  const scheduledAuctions = data.filter(
     (value) => value.status === 1 && !value.AuctionDate
   );
+
   const rescheduledAuctions = data.filter(
     (value) => value.AuctionDate && !value.BidAmount
   );
@@ -86,12 +89,11 @@ function Admin() {
   return (
     <>
       <Adminsidebar />
-      <div class="content">
+      <div className="content">
         <Adminnavbar />
         <div className="container-fluid pt-4 px-4">
           <div className="row g-4">
             {/* -----------Active Auction------------------ */}
-
             <div className="col-sm-12 col-xl-6">
               <div className="bg-light rounded h-100 p-4">
                 <div className="d-flex justify-content-between align-items-center mb-4">
@@ -105,7 +107,6 @@ function Admin() {
                       <th scope="col">Image</th>
                       <th scope="col">Bid Date</th>
                       <th scope="col">Bid Amount</th>
-                      <th scope="col">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -116,27 +117,22 @@ function Admin() {
                         </td>
                       </tr>
                     ) : (
-                      activeAuctions.map((activeAuctions, index) => (
+                      activeAuctions.map((auction, index) => (
                         <tr key={index}>
                           <td>{index + 1}</td>
-                          <td>{activeAuctions.ProductName}</td>
+                          <td>{auction.ProductName}</td>
                           <td>
                             <img
-                              src={`http://localhost:4000${activeAuctions.imageUrl}`}
-                              alt={activeAuctions.donationName}
+                              src={`http://localhost:4000${auction.imageUrl}`}
+                              alt={auction.ProductName}
                               style={{ width: "150px", height: "150px" }}
                             />
                           </td>
-                          <td
-                            style={{ maxWidth: "100px", textAlign: "justify" }}
-                          >
-                            {activeAuctions.donationDescription}
-                          </td>
+                          <td>{auction.AuctionDate}</td>
                           <td>
                             <b>₹</b>
-                            {activeAuctions.donationPrice}
+                            {auction.Minamount}
                           </td>
-                          
                         </tr>
                       ))
                     )}
@@ -145,7 +141,6 @@ function Admin() {
               </div>
             </div>
             {/* -----------Upcoming Auction------------------ */}
-
             <div className="col-sm-12 col-xl-6">
               <div className="bg-light rounded h-100 p-4">
                 <div className="d-flex justify-content-between align-items-center mb-4">
@@ -158,10 +153,10 @@ function Admin() {
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col"> Name</th>
-                      <th scope="col"> Image</th>
-                      <th scope="col"> Date</th>
-                      <th scope="col"> Bid Amount</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Image</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Bid Amount</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -172,27 +167,22 @@ function Admin() {
                         </td>
                       </tr>
                     ) : (
-                      upcomingAuctions.map((upcomingAuctions, index) => (
+                      upcomingAuctions.map((auction, index) => (
                         <tr key={index}>
                           <td>{index + 1}</td>
-                          <td>{upcomingAuctions.ProductName}</td>
+                          <td>{auction.ProductName}</td>
                           <td>
                             <img
-                              src={`http://localhost:4000/${upcomingAuctions.Images}`}
-                              alt={upcomingAuctions.ProductName}
+                              src={`http://localhost:4000/${auction.Images}`}
+                              alt={auction.ProductName}
                               style={{ width: "70px", height: "70px" }}
                             />
                           </td>
-                          <td
-                            style={{ maxWidth: "100px", textAlign: "justify" }}
-                          >
-                            {upcomingAuctions.AuctionDate}
-                          </td>
+                          <td>{auction.AuctionDate}</td>
                           <td>
                             <b>₹</b>
-                            {upcomingAuctions.Minamount}
+                            {auction.Minamount}
                           </td>
-                         
                         </tr>
                       ))
                     )}
@@ -227,42 +217,34 @@ function Admin() {
                         </td>
                       </tr>
                     ) : (
-                      completedAuctions
-                        .slice(0, 3)
-                        .map((completedAuctions, index) => (
-                          <tr key={index}>
-                            <td>{index + 1}</td>
-                            <td>{completedAuctions.ProductName}</td>
-                            <td>
-                              <img
-                                src={`http://localhost:4000/${completedAuctions.Images[0]}`}
-                                alt={completedAuctions.ProductName}
-                                style={{ width: "70px", height: "70px" }}
-                              />
-                            </td>
-                            <td
-                              style={{
-                                maxWidth: "100px",
-                                textAlign: "justify",
-                              }}
-                            >
-                              <b style={{color:"green"}}>₹</b>{completedAuctions.Minamount}
-                            </td>
-                            <td>
-                              <b style={{color:"Red"}}>₹</b>
-                              {completedAuctions.BidAmount}
-                            </td>
-                            
-                          </tr>
-                        ))
+                      completedAuctions.slice(0, 3).map((auction, index) => (
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <td>{auction.ProductName}</td>
+                          <td>
+                            <img
+                              src={`http://localhost:4000/${auction.Images[0]}`}
+                              alt={auction.ProductName}
+                              style={{ width: "70px", height: "70px" }}
+                            />
+                          </td>
+                          <td>
+                            <b style={{ color: "green" }}>₹</b>
+                            {auction.Minamount}
+                          </td>
+                          <td>
+                            <b style={{ color: "Red" }}>₹</b>
+                            {auction.BidAmount}
+                          </td>
+                        </tr>
+                      ))
                     )}
                   </tbody>
                 </table>
               </div>
             </div>
-
-			{/* ------------------------Auction Approval Request---------------  */}
-      <div className="col-sm-12 col-xl-6">
+            {/* ------------------------Auction Approval Request--------------- */}
+            <div className="col-sm-12 col-xl-6">
               <div className="bg-light rounded h-100 p-4">
                 <div className="d-flex justify-content-between align-items-center mb-4">
                   <h6 className="mb-4">AUCTION APPROVAL REQUEST</h6>
@@ -284,97 +266,139 @@ function Admin() {
                     {pendingItems.length === 0 ? (
                       <tr>
                         <td colSpan="6" className="text-center">
-                          There are no Pending Auction Products for approval
+                          No Requests Found
                         </td>
                       </tr>
                     ) : (
-                      pendingItems
-                        .slice(0, 3)
-                        .map((pendingItems, index) => (
-                          <tr key={index}>
-                            <td>{index + 1}</td>
-                            <td>{pendingItems.ProductName}</td>
-                            <td>
-                              <img
-                                src={`http://localhost:4000/${pendingItems.Images[0]}`}
-                                alt={pendingItems.ProductName}
-                                style={{ width: "70px", height: "70px" }}
-                              />
-                            </td>
-                            
-                            <td>
-                              <b>₹</b>
-                              {pendingItems.Minamount}
-                            </td>
-                            <td>
-                              {pendingItems.Username}
-                            </td>
-                            
-                          </tr>
-                        ))
+                      pendingItems.slice(0, 4).map((item, index) => (
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <td>{item.ProductName}</td>
+                          <td>
+                            <img
+                              src={`http://localhost:4000/${item.Images}`}
+                              alt={item.ProductName}
+                              style={{ width: "70px", height: "70px" }}
+                            />
+                          </td>
+                          <td>
+                            <b style={{ color: "green" }}>₹</b>
+                            {item.Minamount}
+                          </td>
+                          <td>{item.AuctioneerName}</td>
+                        </tr>
+                      ))
                     )}
                   </tbody>
                 </table>
               </div>
             </div>
-{/*----------------------------Schedule/Re-Schedule Auction---------------  */}
-<div className="col-sm-12 col-xl-6">
-              <div className="bg-light rounded h-100 p-4">
-                <div className="d-flex justify-content-between align-items-center mb-4">
-                  <h6 className="mb-4">SCHEDULE / RE-SCHEDULE AUCTION</h6>
-                  <Link className="btn btn-primary" to="/adminschedulelist">
-                    View All
-                  </Link>
-                </div>
-                <table className="table table-hover">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Image</th>
-                      <th scope="col">Date</th>
-                      
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {rescheduledAuctions.length === 0 ? (
-                      <tr>
-                        <td colSpan="6" className="text-center">
-                          No Auctions Found to Schedule
-                        </td>
-                      </tr>
-                    ) : (
-                      rescheduledAuctions
-                        .map((rescheduledAuctions, index) => (
-                          <tr key={index}>
-                            <td>{index + 1}</td>
-                            <td>{rescheduledAuctions.ProductName}</td>
-                            <td>
-                              <img
-                                src={`http://localhost:4000/${rescheduledAuctions.Images[0]}`}
-                                alt={rescheduledAuctions.ProductName}
-                                style={{ width: "70px", height: "70px" }}
-                              />
-                            </td>
-                            <td
-                              style={{
-                                maxWidth: "100px",
-                                textAlign: "justify",
-                              }}
-                            >{rescheduledAuctions.Date}
-                            </td>
-                           
-                            
-                          </tr>
-                        ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            {/* ------------------------Schedule Auction--------------- */}
+            <div className="col-sm-12 col-xl-6">
+  <div className="bg-light rounded h-100 p-4">
+    <div className="d-flex justify-content-between align-items-center mb-4">
+      <h6 className="mb-4">SCHEDULE/RE-SCHEDULE AUCTION</h6>
+      <Link className="btn btn-primary" to="/adminschedulelist">View All</Link>
+    </div>
+
+    {/* Scheduled Auctions Table */}
+    <h6 className="mb-4">Scheduled Auctions</h6>
+    <table className="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Product Name</th>
+          <th scope="col">Image</th>
+          <th scope="col">Bid Amount</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {scheduledAuctions.length === 0 ? (
+          <tr>
+            <td colSpan="5" className="text-center">No Scheduled Auctions Found</td>
+          </tr>
+        ) : (
+          scheduledAuctions.map((value, index) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{value.ProductName}</td>
+              <td>
+                <img
+                  src={`http://localhost:4000/${value.Images}`}
+                  alt={value.ProductName}
+                  style={{ width: "70px", height: "70px" }}
+                />
+              </td>
+              <td>₹{value.Minamount}</td>
+              <td>
+                <Link to={`/schedule/${value.ProductId}`} className="btn btn-primary">
+                  Schedule
+                </Link>
+              </td>
+            </tr>
+          ))
+        )}
+      </tbody>
+    </table>
+
+    {/* Rescheduled Auctions Table */}
+    <h6 className="mb-4">Re-Scheduled Auctions</h6>
+    <table className="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Product Name</th>
+          <th scope="col">Image</th>
+          <th scope="col">Bid Amount</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rescheduledAuctions.length === 0 ? (
+          <tr>
+            <td colSpan="5" className="text-center">No Re-Scheduled Auctions Found</td>
+          </tr>
+        ) : (
+          rescheduledAuctions.map((value, index) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{value.ProductName}</td>
+              <td>
+                <img
+                  src={`http://localhost:4000/${value.Images}`}
+                  alt={value.ProductName}
+                  style={{ width: "70px", height: "70px" }}
+                />
+              </td>
+              <td>₹{value.Minamount}</td>
+              <td>
+                <Link to={`/reschedule/${value.ProductId}`} className="btn btn-primary">
+                  Re-Schedule
+                </Link>
+              </td>
+            </tr>
+          ))
+        )}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
           </div>
         </div>
+        <Alert />
       </div>
+    </>
+  );
+}
+
+export default Admin;
+
+
+
+
 {/* --------------Jessy's Code--------------------- */}
       {/* <div class="container-fluid pt-4 px-4">
         <div class="row g-4">
@@ -892,11 +916,10 @@ function Admin() {
         </div>
       </div> */}
 
-      <Clock />
-      <Alert />
+      
       {/* </div> */}
-    </>
-  );
-}
+//     </>
+//   );
+// }
 
-export default Admin;
+// export default Admin;
