@@ -63,7 +63,7 @@ function Sellerproductview({ user }) {
                                         <th scope="col" style={airway}>Sl.No</th>
                                         <th scope="col" style={airway}>Product Name</th>
                                         <th scope="col" style={airway}>Minimum Bid Amount</th>
-                                        <th scope="col" style={airway}>Manufacturing Date</th>
+                                        <th scope="col" style={airway}>Model/Established Date</th>
                                         <th scope="col" style={airway}>Category</th>
                                         <th scope="col" style={airway}>Image</th>
                                         <th style={airway}>Status</th>

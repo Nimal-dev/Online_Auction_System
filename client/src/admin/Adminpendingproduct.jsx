@@ -8,9 +8,7 @@ import Port from "../Port";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function Adminpendingproduct() {
-    const airway = {
-        color: '#880085',
-    };
+    
     const [data, setData] = useState([]);
     const [refresh, setRefresh] = useState(0);
 	
@@ -60,12 +58,12 @@ function Adminpendingproduct() {
 	
 				<div className="col-sm-12 col-xl-12" style={{ margin: '2px' }}>
 					<div className="bg-light rounded h-100 p-4">
-						<h3 className="mb-4" style={airway}>Pending Product Approval</h3>
+						<h3 className="mb-4">Product Approval</h3>
 						{data.some((value) => value.status === undefined) ? (
-							<table className="table table-bordered" style={{ border: '2px solid #880085' }}>
-								<thead style={airway}>
+							<table className="table table-bordered" style={{ border: '2px solid' }}>
+								<thead >
 									<tr>
-										<th scope="col">Seller Name</th>
+										<th scope="col">Auctioneer Name</th>
 										<th scope="col">Product Name</th>
 										<th scope="col">Minimum Bid_Amount</th>
 										<th scope="col">Category</th>
@@ -81,14 +79,16 @@ function Adminpendingproduct() {
 												<td>{value.Minamount}</td>
 												<td>{value.Category}</td>
 												<td>
-													<Link to="/viewsingleproduct" state={{ id: value._id }} style={{ background: '#007bff', color: 'white', padding: '7px', textDecoration: 'none', borderRadius: '5px', display: 'inline-block' }}>View</Link>
-												</td>
-												<td>
-													<button onClick={() => handleApprove(value._id)} style={{ background: 'green', color: 'white', padding: '7px', borderRadius: '5px', border: 'none', cursor: 'pointer' }}>Approve</button>
-												</td>
-												<td>
-													<button onClick={() => handleReject(value._id)} style={{ background: 'red', color: 'white', padding: '7px', borderRadius: '5px', border: 'none', cursor: 'pointer' }}>Reject</button>
-												</td>
+													<Link to="/viewsingleproduct" state={{ id: value._id }} style={{ background: '#007bff', color: 'white', padding: '7px', textDecoration: 'none', borderRadius: '5px', display: 'inline-block', margin:"10px",
+														padding:"10px 20px"
+													 }}>View</Link>
+												
+												
+													<button onClick={() => handleApprove(value._id)} style={{ background: 'green', color: 'white', padding: '7px', borderRadius: '5px', border: 'none', cursor: 'pointer',padding:"10px 20px", margin:"10px" }}>Approve</button>
+												
+												
+													<button onClick={() => handleReject(value._id)} style={{ background: 'red', color: 'white', borderRadius: '5px',padding:"10px 20px", border: 'none', cursor: 'pointer', margin:"10px" }}>Reject</button>
+													</td>
 											</tr>
 										)
 									))}

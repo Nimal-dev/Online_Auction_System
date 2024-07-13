@@ -55,7 +55,7 @@ function Adminupcoming() {
                         <p className="card-text"><b>Minimum Bid Amount:</b> {product.Minamount}</p>
                         <p className="card-text"><b>Auction Date:</b> {product.AuctionDate}</p>
                         <p className="card-text"><b>Start and End Time:</b> {product.StartTime} - {product.EndTime}</p>
-                        <p className="card-text"><b>Seller Name:</b> {product.Username}</p>
+                        <p className="card-text"><b>Auctioneer Name:</b> {product.Username}</p>
                       </div>
                     </div>
                 </div>

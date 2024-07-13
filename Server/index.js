@@ -8,6 +8,8 @@ var path = require('path');
 const { ObjectId } = require('mongodb')
 var session = require('express-session')
 const paymentRoutes = require("./Routes/payment");
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 var app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -17,6 +19,85 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({secret:'abc',
 resave:true,
 saveUninitialized:true}))
+
+const sendResetEmail = (email, token) => {
+	const transporter = nodemailer.createTransport({
+	  service: 'Gmail',
+	  auth: {
+		user: 'nimal.logiprompt@gmail.com',
+		pass: 'tzcp cdjg acgo covd',
+	  },
+	});
+  
+	const mailOptions = {
+	  from: 'nimalprince01@gmail.com',
+	  to: email,
+	  subject: 'Password Reset Request',
+	  text: `You requested a password reset. Please click the following link to reset your password: http://localhost:3000/reset-password/${token}`,
+	};
+  
+	transporter.sendMail(mailOptions, (error, info) => {
+	  if (error) {
+		return console.log(error);
+	  }
+	  console.log('Message sent: %s', info.messageId);
+	});
+  };
+
+
+  app.post('/reset-password-request', async (req, res) => {
+	try {
+	  const { email } = req.body;
+	  const db = await connection;
+	  const user = await db.collection('Register').findOne({ email });
+  
+	  if (!user) {
+		return res.status(404).json({ success: false, message: 'User not found' });
+	  }
+  
+	  const token = crypto.randomBytes(20).toString('hex');
+	  const expiration = Date.now() + 3600000; // 1 hour
+  
+	  await db.collection('Register').updateOne({ email }, { $set: { resetPasswordToken: token, resetPasswordExpires: expiration } });
+  
+	  sendResetEmail(email, token);
+	  res.json({ success: true, message: 'Password reset email sent' });
+	} catch (error) {
+	  console.error('Error during password reset request:', error);
+	  res.status(500).json({ success: false, message: 'Internal server error' });
+	}
+  });
+  
+  // Password reset
+  app.post('/reset-password/:token', async (req, res) => {
+	try {
+	  const { token } = req.params;
+	  const { password } = req.body;
+	  const db = await connection;
+  
+	  const user = await db.collection('Register').findOne({
+		resetPasswordToken: token,
+		resetPasswordExpires: { $gt: Date.now() },
+	  });
+  
+	  if (!user) {
+		return res.status(400).json({ success: false, message: 'Password reset token is invalid or has expired' });
+	  }
+  
+	  await db.collection('Register').updateOne(
+		{ _id: user._id },
+		{
+		  $set: { password },
+		  $unset: { resetPasswordToken: '', resetPasswordExpires: '' },
+		}
+	  );
+  
+	  res.json({ success: true, message: 'Password has been reset' });
+	} catch (error) {
+	  console.error('Error during password reset:', error);
+	  res.status(500).json({ success: false, message: 'Internal server error' });
+	}
+  });
 
 
 app.post('/register', async (req, res) => {

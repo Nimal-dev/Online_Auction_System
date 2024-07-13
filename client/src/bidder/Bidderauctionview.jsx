@@ -121,7 +121,7 @@ function Bidderauctionview({ user }) {
                   <b style={airway}>Category:</b> {data.Category}
                 </p>
                 <p>
-                  <b style={airway}>Seller Name:</b> {data.Username}
+                  <b style={airway}>Auctioneer Name:</b> {data.Username}
                 </p>
                 <p>
                   <b style={airway}>Minimum Bid Amount: </b>

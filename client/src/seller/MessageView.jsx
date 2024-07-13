@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-
-function MessageView() {
+import Biddersidebar from "../bidder/Biddersidebar";
+import Biddernavbar from "../bidder/Biddernavbar";
+function MessageView({ user }) {
   const [messageview, setMessageView] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -21,11 +22,14 @@ function MessageView() {
 
   return (
     <>
-      <div className="content">
+    <Biddersidebar user={user} />
+
+<div class="content">
+  <Biddernavbar user={user}/>
         <div className="container-fluid">
           <div className="row h-100 align-items-center justify-content-center">
             <div className="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-6">
-              <div className="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
+              <div className="bg-light rounded p-4 p-sm-5 my-4 mx-3">
                 <h3 className="text-center">Messages</h3>
                 {loading ? (
                   <div>Loading...</div>
@@ -59,6 +63,7 @@ function MessageView() {
           </div>
         </div>
       </div>
+      
     </>
   );
 }

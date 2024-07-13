@@ -34,10 +34,14 @@ function Messages({ user }) {
   };
 
   return (
+    <>
+              <Biddersidebar user={user} />
+            <div className="content" >
+                <Biddernavbar user={user} />
     <div className="container-fluid">
       <div className="row h-100 align-items-center justify-content-center">
         <div className="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-6">
-          <div className="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
+          <div className="bg-light rounded p-4 p-sm-5 my-4 mx-3">
             <div className="d-flex align-items-center justify-content-center mb-3">
               <h3>CHAT MESSAGES</h3>
             </div>
@@ -54,10 +58,10 @@ function Messages({ user }) {
                   className="form-control"
                   placeholder="Enter your message"
                   id="floatingTextarea"
-                  name="Seller Message"
+                  name="Auctioneer Message"
                   style={{ height: "150px" }}
                   onChange={(event) => setSendMessage(event.target.value)}
-                ></textarea>
+                  ></textarea>
                 <label htmlFor="floatingTextarea">Send Message</label>
               </div>
               {/*------------------------- SUBMIT BUTTON ---------------------------------*/}
@@ -65,7 +69,7 @@ function Messages({ user }) {
                 type="button"
                 className="btn btn-primary py-3 w-100 mb-4"
                 onClick={handleSendMessage}
-              >
+                >
                 <strong>SEND MESSAGE</strong>
               </button>
             </form>
@@ -73,6 +77,8 @@ function Messages({ user }) {
         </div>
       </div>
     </div>
+    </div>
+                </>
   );
 }
 

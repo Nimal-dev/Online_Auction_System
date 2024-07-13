@@ -63,7 +63,7 @@ function Bidderhistory({user}) {
 					<table className="table table-bordered" style={{ border: '2px solid #00cccc' }}>
 						<thead style={airway}>
 						<tr>
-							<th scope="col">Seller Name</th>
+							<th scope="col">Auctioneer Name</th>
 							<th scope="col">Product Name</th>
 							<th scope="col">Category</th>
 							<th scope="col">Minimum Bid Amount</th>
@@ -113,7 +113,7 @@ function Bidderhistory({user}) {
 					<table className="table table-bordered" style={{ border: '2px solid #00cccc' }}>
 						<thead style={airway}>
 						<tr>
-							<th scope="col">Seller Name</th>
+							<th scope="col">Auctioneer Name</th>
 							<th scope="col">Product Name</th>
 							<th scope="col">Category</th>
 							<th scope="col">Minimum Bid Amount</th>

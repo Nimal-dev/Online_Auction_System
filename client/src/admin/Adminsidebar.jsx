@@ -38,14 +38,14 @@ const Adminsidebar = () => {
             >
               <i className="fa fa-list me-2"></i>Category
             </NavLink>
-            <NavLink
+            {/* <NavLink
               exact
               to="/adminactiveauction"
               className="nav-item nav-link"
               activeClassName="active"
             >
               <i className="fa fa-hammer me-2"></i>Auctions
-            </NavLink>
+            </NavLink> */}
             <NavLink
               exact
               to="/adminuser"

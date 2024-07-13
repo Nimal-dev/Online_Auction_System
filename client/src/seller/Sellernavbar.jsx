@@ -31,7 +31,7 @@ function Sellernavbar({user}) {
                                 <div className="d-flex align-items-center">
                                     <img className="rounded-circle" src="gi.jpg" alt="" style={{ width: '40px', height: '40px' }} />
                                     <div className="ms-2">
-                                        <h6 className="fw-normal mb-0">Seller send you a message</h6>
+                                        <h6 className="fw-normal mb-0">Auctioneer send you a message</h6>
                                         <small>15 minutes ago</small>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@ function Sellernavbar({user}) {
 								alt=""
 								style={{ width: '40px', height: '40px' }}
 							/>
-                            <span className="d-none d-lg-inline-flex">{user ? ` ${user.name}` : 'Seller'}</span>
+                            <span className="d-none d-lg-inline-flex">{user ? ` ${user.name}` : 'Auctioneer'}</span>
                         </Link>
                         <div className="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <Link to="/sellerprofileview" className="dropdown-item">My Profile</Link>

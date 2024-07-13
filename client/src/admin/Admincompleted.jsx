@@ -56,15 +56,16 @@ function Admincompletedauction() {
 
         <div className="col-sm-12 col-xl-12" style={{ margin: '2px' }}>
           <div className="bg-light rounded h-100 p-4">
-            <h3 className="mb-4" style={airway}>Auction History</h3>
-
-            {completedAuctions.length > 0 && (
-              <div>
-                <h4>Victorious Auctions</h4>
-                <table className="table table-bordered" style={{ border: '2px solid #880085' }}>
-                  <thead style={airway}>
+          <div className="d-flex justify-content-between align-items-center mb-4">
+              <h6 className="mb-0">COMPLETED AUCTION</h6>
+            </div>
+            {/* <h3 className="mb-4" style={airway}>Auction History</h3> */}
+              <div className="table-responsive">
+                {/* <h4>Victorious Auctions</h4> */}
+                <table className="table table-bordered">
+                  <thead>
                     <tr>
-                      <th scope="col">Seller Name</th>
+                      <th scope="col">Auctioneer Name</th>
                       <th scope="col">Product Name</th>
                       <th scope="col">Category</th>
                       <th scope="col">Minimum Bid Amount</th>
@@ -77,7 +78,13 @@ function Admincompletedauction() {
                     </tr>
                   </thead>
                   <tbody>
-                    {completedAuctions.map((product, index) => (
+                    {completedAuctions.length === 0 ? (
+                    <tr>
+                      <td colSpan="5" className="text-center">
+                        No Auction History Found
+                      </td>
+                    </tr>
+                  ) : (completedAuctions.map((product, index) => (
                       <tr key={index}>
                         <td>{product.Username}</td>
                         <td>{product.ProductName}</td>
@@ -96,11 +103,11 @@ function Admincompletedauction() {
                           )}
                         </td>
                       </tr>
-                    ))}
+                    )))}
                   </tbody>
                 </table>
               </div>
-            )}
+            
 
             {rescheduleProducts.length > 0 && (
               <div>
@@ -108,7 +115,7 @@ function Admincompletedauction() {
                 <table className="table table-bordered" style={{ border: '2px solid #880085' }}>
                   <thead style={airway}>
                     <tr>
-                      <th scope="col">Seller Name</th>
+                      <th scope="col">Auctioneer Name</th>
                       <th scope="col">Product Name</th>
                       <th scope="col">Category</th>
                       <th scope="col">Minimum Bid Amount</th>
